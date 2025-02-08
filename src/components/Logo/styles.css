@@ -1,0 +1,75 @@
+.logo-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.logo-brilho {
+  height: 1.5rem;
+  width: 1.5rem;
+  animation: brilho 3s ease-in-out infinite;
+}
+
+@keyframes brilho {
+  0% {
+    opacity: 0.4;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 0.4;
+    transform: scale(0.95);
+  }
+}
+
+.logo-brilho-topo {
+  position: absolute;
+  left: -0.25rem;
+  top: -0.25rem;
+  color: rgb(96, 165, 250);
+  animation: flutuar 4s ease-in-out infinite;
+}
+
+.logo-brilho-base {
+  position: absolute;
+  bottom: -0.25rem;
+  right: -0.25rem;
+  color: rgb(168, 85, 247);
+  animation: flutuar 4s ease-in-out infinite reverse;
+}
+
+@keyframes flutuar {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.logo-icone {
+  position: relative;
+  z-index: 10;
+  height: 3rem;
+  width: 3rem;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.2));
+}
+
+.logo-wrapper {
+  margin-bottom: 1rem;
+  transform: translateZ(0);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logo-wrapper:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.logo-wrapper:hover .logo-brilho {
+  animation-duration: 1.5s;
+}

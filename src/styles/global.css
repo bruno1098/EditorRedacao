@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cor-primaria: theme('colors.purple.600');
+  --cor-secundaria: theme('colors.blue.400');
+  --cor-texto: theme('colors.white');
+  --cor-fundo: theme('colors.purple.900');
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+}
