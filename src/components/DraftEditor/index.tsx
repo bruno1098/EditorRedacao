@@ -35,11 +35,7 @@ export function DraftEditor() {
 
   // Simulação de salvamento
   const salvarRascunho = () => {
-    const textoCompleto = `
-${titulo}
-
-${paragrafos.map(p => p.content).join('\n\n')}
-    `.trim();
+    const textoCompleto = `${paragrafos.map(p => p.content).join('\n\n')}`.trim();
 
     setRedacaoCompleta(textoCompleto);
     setMensagemSalvo('Rascunho salvo com sucesso!');
@@ -141,8 +137,9 @@ ${paragrafos.map(p => p.content).join('\n\n')}
 
           {redacaoCompleta && (
             <div className="redacao-salva">
-              <h3 className="redacao-salva-titulo">Seu rascunho salvo:</h3>
+              <h3 className="redacao-salva-titulo">Texto Completo:</h3>
               <div className="redacao-salva-conteudo">
+                {titulo && <h1 className="redacao-salva-titulo-destaque">{titulo}</h1>}
                 {redacaoCompleta.split('\n').map((linha, index) => (
                   <p key={index} className="redacao-salva-paragrafo">
                     {linha}
