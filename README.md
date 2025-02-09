@@ -22,6 +22,17 @@ O **Repertório Editor de Redação** é uma aplicação web desenvolvida em Rea
 
 ---
 
+
+
+## 🎥 Demonstração
+
+[![Vídeo de Demonstração](https://img.youtube.com/vi/Ar_i3pDGZZU/0.jpg)](https://www.youtube.com/watch?v=Ar_i3pDGZZU)
+
+> *Clique na imagem acima para assistir ao vídeo de demonstração no YouTube.*
+
+
+---
+
 ## 🎯 Funcionalidades
 
 ✅ **Adicionar Parágrafos** → Permite que os usuários insiram novos parágrafos ao rascunho.  
@@ -99,3 +110,6 @@ VITE v5.4.8  ready in 550 ms
 ⚠️ *O endereço pode variar dependendo da configuração do seu ambiente.*
 
 ---
+
+
+
