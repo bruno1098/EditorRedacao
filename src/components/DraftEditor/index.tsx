@@ -6,9 +6,11 @@ import { DraftParagraph } from '../../types';
 import './styles.css';
 
 export function DraftEditor() {
-  // Hooks para gerenciar os parágrafos e feedback
+  // Hooks para gerenciar os parágrafos
   const [paragrafos, setParagrafos] = useState<DraftParagraph[]>([]);
   const [novoParagrafo, setNovoParagrafo] = useState('');
+  const [tipoParagrafo, setTipoParagrafo] = useState<'Introdução' | 'Desenvolvimento' | 'Conclusão'>('Introdução');
+  const [titulo, setTitulo] = useState('');
   const [mensagemSalvo, setMensagemSalvo] = useState('');
 
   // Handlers principais
@@ -19,6 +21,7 @@ export function DraftEditor() {
         {
           id: crypto.randomUUID(),
           content: novoParagrafo.trim(),
+          type: tipoParagrafo,
         },
       ]);
       setNovoParagrafo('');
@@ -35,6 +38,10 @@ export function DraftEditor() {
     setTimeout(() => setMensagemSalvo(''), 3000);
   };
 
+  const contarTipo = (tipo: string) => {
+    return paragrafos.filter(p => p.type === tipo).length;
+  };
+
   return (
     <div className="editor-container">
       <div className="editor-conteudo">
@@ -43,6 +50,13 @@ export function DraftEditor() {
             <Logo />
             <h1 className="editor-titulo">Editor de Redação</h1>
           </div>
+          <input
+            type="text"
+            value={titulo}
+            onChange={(e) => setTitulo(e.target.value)}
+            placeholder="Título da Redação"
+            className="titulo-entrada"
+          />
           <p className="editor-subtitulo">
             Organize seus pensamentos e crie textos estruturados
           </p>
@@ -61,6 +75,19 @@ export function DraftEditor() {
 
         <div className="editor-secao">
           <div className="mb-4">
+            <label htmlFor="tipoParagrafo" className="textarea-rotulo">
+              Tipo de Parágrafo
+            </label>
+            <select
+              id="tipoParagrafo"
+              value={tipoParagrafo}
+              onChange={(e) => setTipoParagrafo(e.target.value as 'Introdução' | 'Desenvolvimento' | 'Conclusão')}
+              className="select-tipo"
+            >
+              <option value="Introdução">Introdução</option>
+              <option value="Desenvolvimento">Desenvolvimento</option>
+              <option value="Conclusão">Conclusão</option>
+            </select>
             <label htmlFor="novoParagrafo" className="textarea-rotulo">
               Novo Parágrafo
             </label>
@@ -108,7 +135,7 @@ export function DraftEditor() {
                 <Paragraph
                   key={paragrafo.id}
                   id={paragrafo.id}
-                  content={paragrafo.content}
+                  content={`${paragrafo.type} ${contarTipo(paragrafo.type) > 1 ? contarTipo(paragrafo.type) : ''}: ${paragrafo.content}`}
                   onDelete={excluirParagrafo}
                 />
               ))
