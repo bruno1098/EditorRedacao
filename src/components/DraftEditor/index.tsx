@@ -6,12 +6,13 @@ import { DraftParagraph } from '../../types';
 import './styles.css';
 
 export function DraftEditor() {
-  // Hooks para gerenciar os parágrafos
+  // Hooks para gerenciar 
   const [paragrafos, setParagrafos] = useState<DraftParagraph[]>([]);
   const [novoParagrafo, setNovoParagrafo] = useState('');
   const [tipoParagrafo, setTipoParagrafo] = useState<'Introdução' | 'Desenvolvimento' | 'Conclusão'>('Introdução');
   const [titulo, setTitulo] = useState('');
   const [mensagemSalvo, setMensagemSalvo] = useState('');
+  const [redacaoCompleta, setRedacaoCompleta] = useState('');
 
   // Handlers principais
   const adicionarParagrafo = () => {
@@ -34,12 +35,25 @@ export function DraftEditor() {
 
   // Simulação de salvamento
   const salvarRascunho = () => {
+    const textoCompleto = `
+${titulo}
+
+${paragrafos.map(p => p.content).join('\n\n')}
+    `.trim();
+
+    setRedacaoCompleta(textoCompleto);
     setMensagemSalvo('Rascunho salvo com sucesso!');
     setTimeout(() => setMensagemSalvo(''), 3000);
   };
 
-  const contarTipo = (tipo: string) => {
-    return paragrafos.filter(p => p.type === tipo).length;
+  const getNumeroSequencial = (tipo: string, index: number) => {
+    if (tipo === 'Desenvolvimento') {
+      const desenvolvimentos = paragrafos
+        .filter(p => p.type === 'Desenvolvimento')
+        .indexOf(paragrafos[index]);
+      return ` ${desenvolvimentos + 1}`;
+    }
+    return '';
   };
 
   return (
@@ -113,7 +127,7 @@ export function DraftEditor() {
           <div className="preview-cabecalho">
             <div className="preview-titulo">
               <FileText className="preview-icone" />
-              <h2 className="preview-texto">Visualização do Texto</h2>
+              <h2 className="preview-texto">Redação Completa</h2>
             </div>
             <button onClick={salvarRascunho} className="botao-salvar">
               <Save className="mr-2 h-4 w-4" />
@@ -125,21 +139,38 @@ export function DraftEditor() {
             <div className="mensagem-salvo">{mensagemSalvo}</div>
           )}
 
-          <div className="space-y-4">
-            {paragrafos.length === 0 ? (
-              <p className="mensagem-vazio">
-                Nenhum parágrafo adicionado ainda. Comece digitando acima!
-              </p>
-            ) : (
-              paragrafos.map((paragrafo) => (
-                <Paragraph
-                  key={paragrafo.id}
-                  id={paragrafo.id}
-                  content={`${paragrafo.type} ${contarTipo(paragrafo.type) > 1 ? contarTipo(paragrafo.type) : ''}: ${paragrafo.content}`}
-                  onDelete={excluirParagrafo}
-                />
-              ))
-            )}
+          {redacaoCompleta && (
+            <div className="redacao-salva">
+              <h3 className="redacao-salva-titulo">Seu rascunho salvo:</h3>
+              <div className="redacao-salva-conteudo">
+                {redacaoCompleta.split('\n').map((linha, index) => (
+                  <p key={index} className="redacao-salva-paragrafo">
+                    {linha}
+                  </p>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="redacao-completa">
+            {titulo && <h1 className="redacao-titulo">{titulo}</h1>}
+            
+            <div className="redacao-paragrafos">
+              {paragrafos.length === 0 ? (
+                <p className="mensagem-vazio">
+                  Nenhum parágrafo adicionado ainda. Comece digitando acima!
+                </p>
+              ) : (
+                paragrafos.map((paragrafo, index) => (
+                  <Paragraph
+                    key={paragrafo.id}
+                    id={paragrafo.id}
+                    content={`${paragrafo.type}${getNumeroSequencial(paragrafo.type, index)}: ${paragrafo.content}`}
+                    onDelete={excluirParagrafo}
+                  />
+                ))
+              )}
+            </div>
           </div>
         </div>
       </div>

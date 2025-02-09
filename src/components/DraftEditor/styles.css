@@ -239,3 +239,49 @@
   backdrop-filter: blur(4px);
   margin-bottom: 1rem;
 }
+
+.redacao-completa {
+  background-color: rgb(255 255 255 / 0.08);
+  border-radius: 0.75rem;
+  padding: 2rem;
+  margin-top: 1rem;
+}
+
+.redacao-titulo {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.redacao-paragrafos {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.redacao-salva {
+  margin-top: 2rem;
+  padding: 2rem;
+  background-color: rgb(255 255 255 / 0.1);
+  border-radius: 0.75rem;
+  border: 1px solid rgb(168, 85, 247, 0.3);
+}
+
+.redacao-salva-titulo {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.redacao-salva-conteudo {
+  white-space: pre-wrap;
+  color: rgb(233, 213, 255);
+  line-height: 1.75;
+}
+
+.redacao-salva-paragrafo {
+  margin-bottom: 1rem;
+}
